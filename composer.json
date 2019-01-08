@@ -1,0 +1,23 @@
+{
+    "name": "psychemedics/psy-autenticacao",
+    "description": "Pacote de comunicação com servidor de autênticação Psychemedis",
+    "keywords": ["laravel"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sergio Hess",
+            "email": "sergio.hess@psychemedics.com.br"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0",
+        "illuminate/support": "5.4.x|5.5.x|5.6.x|5.7.x"
+    },
+    "autoload": {
+        "psr-4": {
+            "PsyAutenticacao\\": "src/"
+        }
+    }
+}
