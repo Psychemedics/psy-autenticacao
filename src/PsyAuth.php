@@ -9,6 +9,6 @@ final class PsyAuth extends AbstractPsyAuth
     public function validaToken()
     {
 
-        // TODO: Implement validaToken() method.
+        return $validacao = $this->validaViaServicoDeAutenticacao();
     }
 }
