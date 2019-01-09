@@ -19,5 +19,12 @@
         "psr-4": {
             "PsyAutenticacao\\": "src/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "PsyAutenticacao\\ServiceProvider"
+            ]
+        }
     }
 }
