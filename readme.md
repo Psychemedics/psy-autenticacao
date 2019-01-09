@@ -40,3 +40,10 @@ php artisan vendor:publish --provider="PsyAutenticacao\ServiceProvider"
 PSYAUTH_URL=http://localhost
 PSYAUTH_TOKEN=123456
 ````
+
+## Uso
+````
+Route::middleware('psyauth')->get('/user', function (Request $request) {
+    return $request->user();
+});
+````
