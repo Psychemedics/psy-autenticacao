@@ -2,6 +2,8 @@
 
 namespace PsyAutenticacao;
 
+use Exception;
+
 
 abstract class AbstractPsyAuth implements PsyAuthInterface
 {
@@ -9,6 +11,7 @@ abstract class AbstractPsyAuth implements PsyAuthInterface
     protected $request;
 
     protected $token;
+
 
     public function __construct($request)
     {
@@ -20,7 +23,13 @@ abstract class AbstractPsyAuth implements PsyAuthInterface
     private function getToken()
     {
 
-        $authorization = $request->header('Authorization');
+        $authorization = $this->request->header('Authorization');
+
+        if( empty($authorization) ) {
+
+            throw new Exception('Token inválido');
+        }
+
         $this->token = str_replace('Bearer ', '', $authorization);
     }
 
@@ -30,6 +39,7 @@ abstract class AbstractPsyAuth implements PsyAuthInterface
         $header = [
             'Accept: application/json',
             'Content-Type: application/json',
+            'Authorization: Bearer ' . config('psyauth.psyAuthToken'),
         ];
 
         $opcoes = [
@@ -54,6 +64,8 @@ abstract class AbstractPsyAuth implements PsyAuthInterface
             throw new Exception('Falha ao se comunicar com o serviço de autênticação');
         }
 
-        return $dados->data->autorizado;
+        $retorno = json_decode($dados);
+
+        return $retorno->data->autorizado;
     }
 }

@@ -12,9 +12,7 @@ Pacote de comunicação com servidor de autênticação Psychemedis
 composer require psychemedics/psy-autenticacao
 ````
 
-#### Laravel < 5.5
-
-##### `config/app.php`
+##### `config/app.php` para Laravel < 5.5
 ````
 'providers' => [
     ...
@@ -22,10 +20,12 @@ composer require psychemedics/psy-autenticacao
 ],
 ````
 
-#### ENV
+##### `app/Http/Kernel.php`
 ````
-PSYAUTH_URL=http://localhost
-PSYAUTH_TOKEN=123456
+protected $routeMiddleware = [
+    ...
+    'psyauth' => \PsyAutenticacao\HandlePsyAuth::class,
+];
 ````
 
 ### Publicação
@@ -35,3 +35,8 @@ Utilize o comando abaixo para publicar o aruqivo de configuração `config/psyau
 php artisan vendor:publish --provider="PsyAutenticacao\ServiceProvider"
 ````
 
+### ENV
+````
+PSYAUTH_URL=http://localhost
+PSYAUTH_TOKEN=123456
+````
