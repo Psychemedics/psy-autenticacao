@@ -36,6 +36,11 @@ abstract class AbstractPsyAuth implements PsyAuthInterface
     protected function validaViaServicoDeAutenticacao()
     {
 
+        if( in_array($request->server('REMOTE_ADDR'), config('psyauth.ipsLiberados')) ) {
+
+            return true;
+        }
+
         $header = [
             'Accept: application/json',
             'Content-Type: application/json',
