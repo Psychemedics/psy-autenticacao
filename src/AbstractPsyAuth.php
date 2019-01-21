@@ -25,20 +25,20 @@ abstract class AbstractPsyAuth implements PsyAuthInterface
 
         $authorization = $this->request->header('Authorization');
 
-        if( empty($authorization) ) {
-
-            throw new Exception('Token inválido');
-        }
-
         $this->token = str_replace('Bearer ', '', $authorization);
     }
 
     protected function validaViaServicoDeAutenticacao()
     {
 
-        if( in_array($request->server('REMOTE_ADDR'), config('psyauth.ipsLiberados')) ) {
+        if( in_array($this->request->server('REMOTE_ADDR'), config('psyauth.ipsLiberados')) ) {
 
             return true;
+        }
+
+        if( empty($this->token) ) {
+
+            throw new Exception('Token inválido');
         }
 
         $header = [
