@@ -33,20 +33,21 @@ abstract class AbstractPsyAuth implements PsyAuthInterface
     protected function validaViaServicoDeAutenticacao()
     {
 
-        if( in_array($this->request->server('REMOTE_ADDR'), config('psyauth.ipsLiberados')) ) {
-
-            return (object)[
-                'autorizado' => true,
-                'usuario' => null,
-            ];
-        }
-
         if( empty($this->token) ) {
 
             return (object)[
                 'autorizado' => false,
                 'usuario' => null,
             ];
+        } else {
+
+            if( in_array($this->request->server('REMOTE_ADDR'), config('psyauth.ipsLiberados')) ) {
+
+                return (object)[
+                    'autorizado' => true,
+                    'usuario' => null,
+                ];
+            }
         }
 
         $header = [
