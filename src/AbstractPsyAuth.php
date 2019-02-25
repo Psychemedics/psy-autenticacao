@@ -35,12 +35,6 @@ abstract class AbstractPsyAuth implements PsyAuthInterface
 
         if( empty($this->token) ) {
 
-            return (object)[
-                'autorizado' => false,
-                'usuario' => null,
-            ];
-        } else {
-
             if( in_array($this->request->server('REMOTE_ADDR'), config('psyauth.ipsLiberados')) ) {
 
                 return (object)[
@@ -48,6 +42,11 @@ abstract class AbstractPsyAuth implements PsyAuthInterface
                     'usuario' => null,
                 ];
             }
+
+            return (object)[
+                'autorizado' => false,
+                'usuario' => null,
+            ];
         }
 
         $header = [
