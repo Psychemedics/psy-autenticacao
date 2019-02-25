@@ -35,12 +35,18 @@ abstract class AbstractPsyAuth implements PsyAuthInterface
 
         if( in_array($this->request->server('REMOTE_ADDR'), config('psyauth.ipsLiberados')) ) {
 
-            return true;
+            return (object)[
+                'autorizado' => true,
+                'usuario' => null,
+            ];
         }
 
         if( empty($this->token) ) {
 
-            throw new Exception('Token inválido');
+            return (object)[
+                'autorizado' => false,
+                'usuario' => null,
+            ];
         }
 
         $header = [
@@ -68,7 +74,10 @@ abstract class AbstractPsyAuth implements PsyAuthInterface
 
         if( $statusCode != 200 ) {
 
-            throw new Exception('Falha ao se comunicar com o serviço de autênticação');
+            return [
+                'autorizado' => false,
+                'usuario' => null,
+            ];
         }
 
         $retorno = json_decode($dados);
