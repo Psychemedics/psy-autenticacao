@@ -3,6 +3,8 @@
 namespace PsyAutenticacao;
 
 use Exception;
+use Firebase\JWT\JWT;
+use Illuminate\Support\Facades\Session;
 
 
 abstract class AbstractPsyAuth implements PsyAuthInterface
@@ -71,6 +73,6 @@ abstract class AbstractPsyAuth implements PsyAuthInterface
 
         $retorno = json_decode($dados);
 
-        return $retorno->data->autorizado;
+        return $retorno->data;
     }
 }
