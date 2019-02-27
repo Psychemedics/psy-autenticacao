@@ -14,7 +14,10 @@ final class PsyAuth extends AbstractPsyAuth
 
         $dadosRetorno = $this->validaViaServicoDeAutenticacao();
 
-        Session::put('usuario', $dadosRetorno->usuario);
+        if (isset($dadosRetorno->usuario)) {
+
+            Session::put('usuario', $dadosRetorno->usuario);
+        }
 
         return $dadosRetorno->autorizado;
     }
