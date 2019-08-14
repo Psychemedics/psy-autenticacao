@@ -74,7 +74,7 @@ abstract class AbstractPsyAuth implements PsyAuthInterface
 
         if( $statusCode != 200 ) {
 
-            return [
+            return (object)[
                 'autorizado' => false,
                 'usuario' => null,
             ];
