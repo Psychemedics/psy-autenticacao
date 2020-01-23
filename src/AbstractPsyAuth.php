@@ -2,10 +2,7 @@
 
 namespace PsyAutenticacao;
 
-use Exception;
 use Firebase\JWT\JWT;
-use Illuminate\Support\Facades\Session;
-
 
 abstract class AbstractPsyAuth implements PsyAuthInterface
 {
@@ -13,7 +10,6 @@ abstract class AbstractPsyAuth implements PsyAuthInterface
     protected $request;
 
     protected $token;
-
 
     public function __construct($request)
     {
@@ -33,9 +29,9 @@ abstract class AbstractPsyAuth implements PsyAuthInterface
     protected function validaViaServicoDeAutenticacao()
     {
 
-        if( empty($this->token) ) {
+        if (empty($this->token)) {
 
-            if( in_array($this->request->server('REMOTE_ADDR'), config('psyauth.ipsLiberados')) ) {
+            if (in_array($this->request->server('REMOTE_ADDR'), config('psyauth.ipsLiberados'))) {
 
                 return (object)[
                     'autorizado' => true,
@@ -66,13 +62,21 @@ abstract class AbstractPsyAuth implements PsyAuthInterface
         curl_setopt_array($curl, $opcoes);
         $response = curl_exec($curl);
 
+        if (empty($response)) {
+
+            return (object)[
+                'autorizado' => false,
+                'usuario' => null,
+            ];
+        }
+
         $tamanhoHeader = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
         $dados = substr($response, $tamanhoHeader);
         $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
         curl_close($curl);
 
-        if( $statusCode != 200 ) {
+        if ($statusCode != 200) {
 
             return (object)[
                 'autorizado' => false,
@@ -84,4 +88,5 @@ abstract class AbstractPsyAuth implements PsyAuthInterface
 
         return $retorno->data;
     }
+
 }
