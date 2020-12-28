@@ -13,5 +13,6 @@
 return [
     'psyAuthUrl' => env('PSYAUTH_URL', 'http://localhost'),
     'psyAuthToken' => env('PSYAUTH_TOKEN', '123456'),
+    'psyAuthUseForwardedFor' => env('PSYAUTH_USE_FORWARDED_FOR', false),
     'ipsLiberados' => ['127.0.0.1'],
 ];

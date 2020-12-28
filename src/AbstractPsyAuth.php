@@ -35,7 +35,9 @@ abstract class AbstractPsyAuth implements PsyAuthInterface
 
         if( empty($this->token) ) {
 
-            if( in_array($this->request->server('REMOTE_ADDR'), config('psyauth.ipsLiberados')) ) {
+            $authIp = (config('psyauth.psyAuthUseForwardedFor')) ? $this->request->server('HTTP_X_FORWARDED_FOR') : $this->request->server('REMOTE_ADDR');
+
+            if( in_array($authIp, config('psyauth.ipsLiberados')) ) {
 
                 return (object)[
                     'autorizado' => true,

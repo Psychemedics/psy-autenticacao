@@ -39,6 +39,7 @@ php artisan vendor:publish --provider="PsyAutenticacao\ServiceProvider"
 ````
 PSYAUTH_URL=http://localhost
 PSYAUTH_TOKEN=123456
+PSYAUTH_USE_FORWARDED_FOR=false
 ````
 
 ## Uso
